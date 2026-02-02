@@ -1,0 +1,13 @@
+flask
+flask-cors
+gunicorn
+fastai
+torch
+torchvision
+numpy
+opencv-python
+pillow
+matplotlib
+pymongo
+certifi
+scikit-learn
