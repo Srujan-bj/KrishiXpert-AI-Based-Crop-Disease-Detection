@@ -15,11 +15,13 @@ import certifi
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, roc_curve, auc
 from sklearn.preprocessing import LabelEncoder, label_binarize
 
-# MongoDB setup
-uri = "mongodb+srv://srujanbj0:T8eVLq3KQQnrGS@cluster0.cjdmevr.mongodb.net/?retryWrites=true&w=majority"
+import os
+
+uri = os.environ.get("MONGO_URI")
 client = MongoClient(uri, tlsCAFile=certifi.where())
-db = client["srujbase"]
+db = client["srubase"]
 collection = db["collection1"]
+
 
 app = Flask(__name__)
 CORS(app)
@@ -270,4 +272,5 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
