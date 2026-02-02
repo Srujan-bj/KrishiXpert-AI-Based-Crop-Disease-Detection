@@ -1,6 +1,5 @@
 flask
 flask-cors
-gunicorn
 fastai
 torch
 torchvision
@@ -11,3 +10,4 @@ matplotlib
 pymongo
 certifi
 scikit-learn
+gunicorn
