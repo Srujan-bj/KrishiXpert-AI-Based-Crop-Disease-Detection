@@ -23,12 +23,24 @@ collection = db["collection1"]
 
 
 app = Flask(__name__)
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({
+        "status": "KrishiXpert API is running 🚀",
+        "endpoint": "/predict (POST)"
+    })
+
 CORS(app)
 
 # Load FastAI model
 MODEL_PATH = "Ai-model/plant_disease_classifier1.pkl"
-learn = load_learner(MODEL_PATH)
+learn = None
 
+@app.before_first_request
+def load_model():
+    global learn
+    if learn is None:
+        learn = load_learner(MODEL_PATH)
 
 
 
@@ -140,6 +152,11 @@ def hnun_graph(x, y):
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    global learn 
+    
+    if learn is None:
+        load_model()
+
     if 'file' not in request.files:
         return jsonify({'error': 'No file uploaded'}), 400
 
@@ -273,6 +290,7 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
