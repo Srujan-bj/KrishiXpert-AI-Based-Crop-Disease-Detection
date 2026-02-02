@@ -16,10 +16,10 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, roc_curve,
 from sklearn.preprocessing import LabelEncoder, label_binarize
 
 # MongoDB setup
-uri = "YOUR ULR "
+uri = "mongodb+srv://srujanbj0:T8eVLq3KQQnrGS@cluster0.cjdmevr.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri, tlsCAFile=certifi.where())
-db = client["BASE NAME"]
-collection = db["COLLECTION NAME"]
+db = client["srujbase"]
+collection = db["collection1"]
 
 app = Flask(__name__)
 CORS(app)
@@ -270,3 +270,4 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
