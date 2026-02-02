@@ -14,7 +14,6 @@ from pymongo import MongoClient
 import certifi
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, roc_curve, auc
 from sklearn.preprocessing import LabelEncoder, label_binarize
-
 import os
 
 uri = os.environ.get("MONGO_URI")
@@ -27,7 +26,9 @@ app = Flask(__name__)
 CORS(app)
 
 # Load FastAI model
-learn = load_learner(r"KrishiXpert\Ai-model\plant_disease_classifier1.pkl")
+MODEL_PATH = "Ai-model/plant_disease_classifier1.pkl"
+learn = load_learner(MODEL_PATH)
+
 
 
 
@@ -272,5 +273,6 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
