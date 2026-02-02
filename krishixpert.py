@@ -55,8 +55,14 @@ def generate_analysis_images(image):
     non_green_mask = cv2.bitwise_not(green_mask)
 
     total_foreground_pixels = np.count_nonzero(mask2)
-    healthy_percentage = (np.count_nonzero(green_mask) / total_foreground_pixels) * 100
-    unhealthy_percentage = 100 - healthy_percentage
+    
+    if total_foreground_pixels == 0:
+        healthy_percentage = 0
+        unhealthy_percentage = 0
+    else:
+        healthy_percentage = (np.count_nonzero(green_mask) / total_foreground_pixels) * 100
+        unhealthy_percentage = 100 - healthy_percentage
+
 
     contours, _ = cv2.findContours(mask2, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -200,7 +206,7 @@ def predict():
     x_conf, y_loss, x_healthy, y_unhealthy = [], [], [], []
     y_true, y_pred, y_probs = [], [], []
 
-    for doc in collection.find({}, {"_id": 0}):
+    for doc in collection.find({}, {"_id": 0}).limit(100):
         if 'PREDICTION' in doc:
             y_true.append(doc['PREDICTION'])
             y_pred.append(doc['PREDICTION'])
@@ -290,7 +296,4 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
-
-
 
