@@ -33,16 +33,27 @@ def home():
 CORS(app)
 
 # Load FastAI model
-MODEL_PATH = "Ai-model/plant_disease_classifier1.pkl"
+MODEL_PATH = "plant_disease_classifier.pkl"
+MODEL_URL = "https://drive.google.com/file/d/1mYb1o8EJIuc2Ztt24iuUoVFNV0h73tL4/view?usp=sharing"
+
 learn = None
 
 def load_model():
     global learn
-    if learn is None:
-        learn = load_learner(MODEL_PATH)
 
+    if learn is not None:
+        return
 
+    os.makedirs("Ai-model", exist_ok=True)
 
+    if not os.path.exists(MODEL_PATH):
+        print("Downloading model...")
+        r = requests.get(MODEL_URL)
+        with open(MODEL_PATH, "wb") as f:
+            f.write(r.content)
+
+    learn = load_learner(MODEL_PATH)
+    print("Model loaded")
 
 def generate_analysis_images(image):
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
@@ -296,5 +307,6 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
