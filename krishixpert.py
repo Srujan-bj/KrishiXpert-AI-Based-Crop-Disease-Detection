@@ -36,11 +36,11 @@ CORS(app)
 MODEL_PATH = "Ai-model/plant_disease_classifier1.pkl"
 learn = None
 
-@app.before_first_request
 def load_model():
     global learn
     if learn is None:
         learn = load_learner(MODEL_PATH)
+
 
 
 
@@ -296,4 +296,5 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
