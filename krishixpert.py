@@ -32,12 +32,7 @@ def home():
 
 from flask_cors import CORS
 
-CORS(
-    app,
-    origins="*",
-    allow_headers="*",
-    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 # Load FastAI model
@@ -315,6 +310,7 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
