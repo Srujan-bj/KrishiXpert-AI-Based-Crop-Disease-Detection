@@ -1,84 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">                                                          
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaf Disease Prediction</title>
+
     <script src="https://kit.fontawesome.com/5d5726bff9.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="kRISHIxPERT.css">
-
+    <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-                                     
-    <div class="navbar">
-        <div class="nav-item"></div>
-        <div class="nav-item">
-            <a href="shop.html">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="translate" data-en="Shop" data-hi="दुकान" data-kn="ಅಂಗಡಿ">Shop</span>
-            </a>                         
-        </div>
-        <div class="nav-item">
-            <a href="bot.html">
-                <i class="fa-solid fa-user-tie"></i>
-                <span class="translate" data-en="Ask FARMER" data-hi="किसान से पूछें" data-kn="ಕಿಸಾನ್ ಕೇಳಿ">Ask Farmer</span>
+
+    <div class="leaf-bg"></div>
+
+    <!-- SERVER STATUS -->
+    <div id="server-indicator" title="Backend Server Status">
+        <span id="server-status"></span>
+        <span id="server-text">LIVE</span>
+        <span id="server-latency"></span>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar collapsed">
+        <button class="toggle-btn" id="toggleSidebar">☰</button>
+
+        <ul class="menu">
+            <a href="index.html">
+                <li>
+                    <i class="fa-solid fa-house"></i>
+                    <span>HOME</span>
+                </li>
             </a>
-        </div>
-        <div class="nav-item">
-            <i class="fa-solid fa-phone"></i>
-            <span class="translate" data-en="Customer Care" data-hi="ग्राहक सेवा" data-kn="ಗ್ರಾಹಕ ಸೇವೆ">Customer Care</span>
-        </div>
-        <div class="nav-item language-dropdown">
-            <i class="fa-solid fa-language" id="language-icon"></i>
-            <span class="translate" data-en="" data-hi="" data-kn=""></span>
-            <select id="language-select" class="hidden">
-                <option value="en">English</option>
-                <option value="hi">हिंदी</option>
-                <option value="kn">ಕನ್ನಡ</option>
-            </select>
-        </div>
-    </div>
-    <div  id="count"></div>
 
-    <div class="cont">
-        <h1> LIVE MONITOR</h1>
-        <p>Temperature: <span id="temperature">--°C</span></p>
-        <p>Humidity: <span id="humidity">--%</span></p>
-        <p>Ph level: <span id="ph">--%</span></p>
+            <a href="shop.html">
+                <li>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="translate"
+                          data-en="SHOPING"
+                          data-hi="दुकान"
+                          data-kn="ಅಂಗಡಿ">SHOPING</span>
+                </li>
+            </a>
+
+            <a href="bot.html">
+                <li>
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span class="translate"
+                          data-en="Ask FARMER"
+                          data-hi="किसान से पूछें"
+                          data-kn="ಕಿಸಾನ್ ಕೇಳಿ">Ask Farmer</span>
+                </li>
+            </a>
+
+            <a href="#">
+                <li>
+                    <i class="fa-solid fa-phone"></i>
+                    <span class="translate"
+                          data-en="Customer Care"
+                          data-hi="ग्राहक सेवा"
+                          data-kn="ಗ್ರಾಹಕ ಸೇವೆ">Customer Care</span>
+                </li>
+            </a>
+
+            <li>
+                <div class="nav-item language-dropdown">
+                    <i class="fa-solid fa-language" id="language-icon"></i>
+                    <select id="language-select" class="hidden">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="kn">ಕನ್ನಡ</option>
+                    </select>
+                </div>
+            </li>
+
+            <br><br><br><br>
+
+            <a href="krishiXpertlogin.html">
+                <li>
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>LOG OUT</span>
+                </li>
+            </a>
+        </ul>
     </div>
 
-    <div class="cont1">
-        <p id="predictionResult1"></p>
+    <!-- MAIN CONTENT -->
+    <div id="main-container">
+        <div id="count"></div>
+        <div id="predictionResult1"></div>
+
+        <!-- IMAGES -->
+        <div id="image-container"></div>
     </div>
+
+    <!-- UPLOAD CARD -->
     <div class="agri-contaier">
-        <div class="prediction">
-            <h2>Upload Crop Image</h2>
-            <input class="choose" type="file" id="fileInput" accept="image/*">
-            <button onclick="predictDisease()">Predict Disease</button>
-            <div class="result-container">
-                <h2>Prediction Result:</h2>
-                <p id="predictionResult"></p>
-            </div>
-        </div>  
+        <h2>Image Analaysis</h2>
+        <button id="predictBtn" onclick="predictDisease()">Predict Disease</button>
+        <p id="predictionResult"></p>
     </div>
-   <div class="img-row">
-    <br>
-    <br>
-    <br>
-    <br>
-<div style="display: flex; flex-direction: row;">
-    <div id="image-container"></div>
-    <div id="img2"></div>
-    <div id="img3"></div>
-    <div id="img4"></div>
-    <div id="img5"></div>
-    <div id="img6"></div>
-    <div id="img7"></div>
-</div>
-                                                          
-</div>
-    </div>
-    <script src="KrishiXpert.js"></script>
-    <script src="language.js"></script> <!-- Include the new script -->
+<div id="system-monitor"></div>
+    <script src="image.js"></script>
 </body>
 </html>
