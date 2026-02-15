@@ -52,7 +52,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Load FastAI model
-learn = load_learner(r"C:\Users\sruja\Desktop\Plant Village\plant_disease_classifier1.pkl")
+learn = load_learner("plant_disease_classifier1.pkl")
 
 def get_green_thresholds(disease):
     disease = disease.lower()
@@ -502,4 +502,5 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True ,threaded=True)
+
 
