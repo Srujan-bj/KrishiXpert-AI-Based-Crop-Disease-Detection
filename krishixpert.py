@@ -20,10 +20,10 @@ import psutil
 import logging
 
 # MongoDB setup
-uri = "mongodb+srv://srujanbj0:T8eVLq3KQQnrGS@cluster0.cjdmevr.mongodb.net/?retryWrites=true&w=majority"
+uri = "mongodb+srv://."
 client = MongoClient(uri, tlsCAFile=certifi.where())
-db = client["srujbase"]
-collection = db["collection1"]
+db = client["."]
+collection = db["."]
 
 log_messages = []
 # ---------------- NPK RATIOS ---------------- #
@@ -502,3 +502,4 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True ,threaded=True)
+
